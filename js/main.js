@@ -100,20 +100,28 @@ $(document).ready(function() {
 	var render = function(messages) {
 		// console.log(messages);
 		var messageRowMe = _.template('<li class="right clearfix"><span class="chat-img pull-right"><img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar" class="img-circle"></span><div class="chat-body clearfix"><div class="header"><small><span id="likes" class="glyphicon glyphicon-heart"> <%= like %> </span></small><strong class="pull-right primary-font"><%= name %></strong></div><p><%= message %></p><div><%= time_stamp %></div></div></li>');
-		var messageRowYou = _.template('<li class="left clearfix"><span class="chat-img pull-left"><img src="http://placehold.it/50/55C1E7/fff&amp;text=YOU" alt="User Avatar" class="img-circle"></span><div class="chat-body clearfix"><div class="header"><small><span id="likes" class="glyphicon glyphicon-heart"> <%= like %> </span></small><strong class="pull-left primary-font"><%= name %></strong></div><p><%= message %></p><div><%= time_stamp %></div></div></li>');
+		var messageRowYou = _.template('<li class="left clearfix"><span class="chat-img pull-left"><img src="http://placehold.it/50/55C1E7/fff&amp;text=THEM" alt="User Avatar" class="img-circle"></span><div class="chat-body clearfix"><div class="header"><small><span id="likes" class="glyphicon glyphicon-heart"> <%= like %> </span></small><strong class="pull-left primary-font"><%= name %></strong></div><p><%= message %></p><div><%= time_stamp %></div></div></li>');
 		// console.log(messages);
-		$('#message-board').html('');
+		// $('#message-board').html('');
 		for(var i=0; i<messages.length; i++) {
 			// if(messages[i].message && messages[i].name && messages[i].created_at) {
 			if(messages[i].name == name){
-				console.log("Name at i: " + messages[i].name + "     Current user: " + name);
+				// console.log("Name at i: " + messages[i].name + "     Current user: " + name);
 				$('.chat').prepend(messageRowMe(messages[i]));
+				var me = _.template("<strong class='pull-right primary-font'><%= name %></strong> : ");
+				$('#name-label').html(" ");
+				$('#name-label').append(messages[i].name);
+
 			}
 			else{
 				$('.chat').prepend(messageRowYou(messages[i]));
 			}
 
 		}
+		// click and drag chatbox 
+		// $( ".row" ).draggable({ handle: ".panel-heading" });
+		$( ".panel-heading" ).draggable();
+
 	};
 
 
@@ -121,7 +129,7 @@ $(document).ready(function() {
 	// var now = timeStamp();
 	// var firstPass = 1;
 	getMessages();
-	setInterval( getMessages, 3000);
+	setInterval( getMessages, 1000);
 
 });
 
